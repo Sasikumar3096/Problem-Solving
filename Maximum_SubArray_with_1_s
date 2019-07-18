@@ -1,0 +1,53 @@
+
+public class Maximum_SubArray_with_1_s {
+
+	public static void main(String[] args) {
+		int a[][]= {
+				{0,0,1,1,1,0},
+				{0,0,1,1,1,0},
+				{0,1,1,1,1,1},
+				{0,1,1,1,0,0},
+				{0,1,1,1,1,1},
+				{0,0,0,0,1,0},
+		};
+		int n = a.length,max=0;
+		int s[][] = new int[n][n];
+		for(int i =0;i<n;i++)
+			{	//COPY THE CALUES FROM THE LEFT AND TOP TO THE NEW MATRIX
+			s[0][i] = a[0][i];
+			s[i][0] = a[i][0];
+			}
+			
+		for(int i=1;i<n;i++)
+			
+			for(int j=1;j<n;j++)
+			{	
+				if(a[i][j]!=0) //Only if one is present 
+					{s[i][j] = Math.min(Math.min(s[i-1][j], s[i-1][j-1]), s[i][j-1]) + 1; //CHECK TOP,TOP_lEFT,LEFT
+																						//Find their minimum value and add 1 with it
+					if(s[i][j]>max)
+						max = s[i][j];
+					}
+			}
+		//Display the Changed Matrix
+		for(int i=0;i<n;i++)
+		{
+			for(int j=0;j<n;j++)
+				System.out.print(s[i][j]+" ");
+			System.out.println();
+		}
+		System.out.print("The Maximum MxM subarray with 1's is of length ");
+		System.out.println(max);
+	}	
+
+}
+/* THE OUTPUT IS
+0 0 1 1 1 0 
+0 0 1 2 2 0 
+0 1 1 2 3 1 
+0 1 2 2 0 0 
+0 1 2 3 1 1 
+0 0 0 0 1 0 
+The Maximum MxM subarray with 1's is of length 3
+
+*/
